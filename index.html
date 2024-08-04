@@ -9,25 +9,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #2e2b3f; /* Dark purple background */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #e0e0e0; /* Light text color */
         }
         .container {
-            background: white;
+            background: #3c3c4b; /* Darker background for the container */
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
             padding: 20px;
             width: 90%;
             max-width: 800px;
         }
         h1 {
             font-size: 28px;
-            color: #333;
+            color: #f4f4f4; /* Light header color */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -35,23 +36,25 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0; /* Light label color */
         }
         textarea {
             width: calc(100% - 22px);
             padding: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #555; /* Darker border for textarea */
             border-radius: 4px;
             margin-bottom: 15px;
             font-size: 16px;
             min-height: 100px;
+            background-color: #2e2b3f; /* Dark background for textarea */
+            color: #e0e0e0; /* Light text color */
             box-sizing: border-box;
             resize: vertical; /* Allow vertical resizing only */
         }
         button {
-            background-color: #007bff;
+            background-color: #5a2d81; /* Dark purple button */
             border: none;
-            color: white;
+            color: #e0e0e0; /* Light button text color */
             padding: 15px 25px;
             text-align: center;
             text-decoration: none;
@@ -62,19 +65,20 @@
             border-radius: 4px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #6e3c92; /* Lighter purple on hover */
         }
         .output {
             margin-top: 20px;
             padding: 15px;
-            background-color: #e9ecef;
-            border: 1px solid #ddd;
+            background-color: #2e2b3f; /* Dark background for output area */
+            border: 1px solid #555; /* Darker border for output area */
             border-radius: 4px;
             min-height: 100px;
             box-sizing: border-box;
             word-wrap: break-word;
             resize: vertical; /* Allow vertical resizing only */
             overflow: auto; /* Ensure overflow is handled */
+            color: #e0e0e0; /* Light text color */
         }
         .checkbox-group {
             margin-bottom: 15px;
@@ -107,6 +111,19 @@
     </div>
 
     <script>
+        // Ensure mutually exclusive checkboxes
+        document.getElementById('textToGarbodor').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('garbodorToText').checked = false;
+            }
+        });
+
+        document.getElementById('garbodorToText').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('textToGarbodor').checked = false;
+            }
+        });
+
         // Unified conversion function
         function convert() {
             const input = document.getElementById('input').value.trim();
@@ -186,3 +203,4 @@
     </script>
 </body>
 </html>
+
