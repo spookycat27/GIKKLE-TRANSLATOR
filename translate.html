@@ -1,0 +1,188 @@
+<!-- CHATGPT WROTE THIS -- I DID NOT WRITE A SINGLE LINE APART FROM HERE. OPEN SOURCE, DO LITERALLY WHATEVER YOU WANT WITH THIS. PUBLIC DOMAIN LICENSE UNLESS CHATGPT HAS A SHARE-ALIKE ONE, THEN THIS HAS THAT ONE -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gikkle Understander</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        textarea {
+            width: calc(100% - 22px);
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            min-height: 100px;
+            box-sizing: border-box;
+            resize: vertical; /* Allow vertical resizing only */
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            resize: vertical; /* Allow vertical resizing only */
+            overflow: auto; /* Ensure overflow is handled */
+        }
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gikkle Understander</h1>
+        <form id="unifiedForm">
+            <label for="input">Enter Text or Custom String:</label>
+            <textarea id="input" placeholder="Type text or custom string here"></textarea>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="textToGarbodor" name="conversion" value="textToGarbodor">
+                <label for="textToGarbodor">Text to GARBODOR</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="garbodorToText" name="conversion" value="garbodorToText">
+                <label for="garbodorToText">GARBODOR to Text</label>
+            </div>
+
+            <button type="button" onclick="convert()">Convert</button>
+        </form>
+        <h3>Output:</h3>
+        <textarea id="output" class="output" readonly></textarea>
+    </div>
+
+    <script>
+        // Unified conversion function
+        function convert() {
+            const input = document.getElementById('input').value.trim();
+            const output = document.getElementById('output');
+            const garbodor = 'garbodor';
+            const garbodorCaps = 'GARBODOR';
+
+            const isTextToGarbodor = document.getElementById('textToGarbodor').checked;
+            const isGarbodorToText = document.getElementById('garbodorToText').checked;
+
+            if (isTextToGarbodor && !isGarbodorToText) {
+                // Text to custom string
+                const binary = input.split('').map(char => {
+                    const bin = char.charCodeAt(0).toString(2);
+                    return bin.padStart(8, '0'); // Ensure 8-bit binary representation
+                }).join(' ');
+
+                // Convert binary to custom string
+                const binaryString = binary.replace(/\s+/g, ''); // Remove spaces
+                const chunkSize = 8; // Size of each chunk (byte)
+                let customString = '';
+
+                // Process each chunk of 8 bits
+                for (let i = 0; i < binaryString.length; i += chunkSize) {
+                    const chunk = binaryString.slice(i, i + chunkSize);
+                    const mappedChunk = chunk.split('').map((bit, index) => {
+                        if (bit === '0') {
+                            // Map 0 to lowercase "garbodor"
+                            return garbodor[index % garbodor.length];
+                        } else if (bit === '1') {
+                            // Map 1 to uppercase "GARBODOR"
+                            return garbodorCaps[index % garbodorCaps.length];
+                        } else {
+                            return ''; // Ignore non-binary characters
+                        }
+                    }).join('');
+                    customString += mappedChunk + ' '; // Add space after each chunk
+                }
+
+                output.textContent = customString.trim(); // Remove trailing space
+
+            } else if (isGarbodorToText && !isTextToGarbodor) {
+                // Custom string to text
+                const garbodor = 'garbodor';
+                const garbodorCaps = 'GARBODOR';
+                const chunks = input.trim().split(/\s+/); // Split by spaces
+                let binaryString = '';
+
+                chunks.forEach(chunk => {
+                    const binaryChunk = chunk.split('').map(char => {
+                        if (garbodor.includes(char)) {
+                            return '0'; // Map lowercase to 0
+                        } else if (garbodorCaps.includes(char)) {
+                            return '1'; // Map uppercase to 1
+                        } else {
+                            return ''; // Ignore non-matching characters
+                        }
+                    }).join('');
+                    binaryString += binaryChunk;
+                });
+
+                // Convert binary to text
+                let text = '';
+                for (let i = 0; i < binaryString.length; i += 8) {
+                    const byte = binaryString.slice(i, i + 8);
+                    if (byte.length === 8) {
+                        text += String.fromCharCode(parseInt(byte, 2));
+                    }
+                }
+
+                output.textContent = text;
+
+            } else {
+                output.textContent = 'Please select a valid conversion type.';
+            }
+        }
+    </script>
+</body>
+</html>
